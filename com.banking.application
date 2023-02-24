@@ -1,0 +1,415 @@
+package com.banking.system;
+                                          
+import java.util.Scanner;
+
+public class BankController {
+	private Bankingview bankingview;
+
+	public BankController(Bankingview bankingview) {
+		this.bankingview = bankingview;
+
+	}
+
+	private BankingModel bankingModel;
+
+	public BankController(BankingModel bankingModel) {
+		this.bankingModel = bankingModel;
+	}
+
+	public BankController() {
+		bankingModel = new BankingModel("Sumathi", "12061998");
+		bankingModel = new BankingModel("Thabathi", "12061997");
+		bankingModel = new BankingModel("Karthi", "12061996");
+		bankingModel = new BankingModel("pavi", "12061995");
+		bankingModel = new BankingModel("Abitha", "12061994");
+
+	}
+
+	public BankingModel getBankingModel() {
+		return bankingModel;
+	}
+
+	public void deposit(int amount) {
+		bankingModel.setdeposit(amount);
+	}
+
+	public void withdraw(int amount) {
+		bankingModel.setwithdraw(amount);
+	}
+
+	public void showMenu() {
+		Scanner sc = new Scanner(System.in);
+		BankController bankController = new BankController();
+		BankingModel bankingModel = bankController.getBankingModel();
+		System.out.println("press 1 to Login");
+		int option = sc.nextInt();
+		switch (option) {
+		case 1: {
+			System.out.println("Enter Username:");
+			String userName = sc.next();
+			System.out.print("Enter your Accountno: ");
+			String inputAccountno = sc.next();
+			if (LoginUser.checkinput(userName, inputAccountno)) {
+				System.out.println("\n-->Welcome " + userName + "<--\n");
+				System.out.println("Thanks for Login.");
+				System.out.println();
+
+				int option1;
+				do {
+					System.out.println("1-Check Your Balance");
+					System.out.println("2-Deposit");
+					System.out.println("3-Withdraw");
+					System.out.println("4-Previous Transaction");
+					System.out.println("5-Exit \n");
+					System.out.print("Enter Your Option : ");
+					option1 = sc.nextInt();
+					switch (option1) {
+					case 1:
+						System.out.println("*****************************************************");
+						System.out.println("Balance = " + bankingModel.getBalance());
+						System.out.println("*****************************************************");
+						break;
+					case 2:
+						System.out.print("Enter an amount to deposit :");
+						int amount1 = sc.nextInt();
+						deposit(amount1);
+						System.out.println("*****************************************************");
+						System.out.println("Deposited : " + amount1);
+						System.out.println("*****************************************************");
+						break;
+					case 3:
+						System.out.print("Enter an amount to withdraw :");
+						int amount2 = sc.nextInt();
+						withdraw(amount2);
+						System.out.println("*****************************************************");
+						System.out.println("Withdrawn : " + amount2);
+						System.out.println("*****************************************************");
+						break;
+					case 4:
+						System.out.println("*****************************************************");
+						bankingModel.getpreviousTransaction();
+						System.out.println("*****************************************************");
+						break;
+					default:
+						System.out.println("Invalid option selected. Please select a valid option.");
+						break;
+					}
+				} while (option != 5);
+				System.out.println("Thank you for using our services....");
+			} else {
+				System.out.println("\nInvalid Credentials. Please try again!\n");
+			}
+		}
+		}
+
+	}
+
+}
+                implement interface;
+
+public interface BankingControllerInterface {
+	void deposit(int amount);
+
+	void withdraw(int amount);
+
+	void showMenu();
+
+	public class BankController implements BankingControllerInterface {
+		private BankingModel bankingModel;
+		private Bankingview bankingview;
+
+		public BankController(Bankingview bankingview) {
+			this.bankingview = bankingview;
+		}
+
+		public BankController(BankingModel bankingModel) {
+			this.bankingModel = bankingModel;
+		}
+
+		public BankController() {
+			bankingModel = new BankingModel("sumathi s", "12061998");
+			bankingModel = new BankingModel("Thabathi", "12061997");
+			bankingModel = new BankingModel("Karthi", "12061996");
+			bankingModel = new BankingModel("pavi", "12061995");
+			bankingModel = new BankingModel("Abitha", "12061994");
+
+		}
+
+		public BankingModel getBankingModel() {
+			return bankingModel;
+		}
+
+		@Override
+		public void deposit(int amount) {
+			bankingModel.setdeposit(amount);
+		}
+
+		@Override
+		public void withdraw(int amount) {
+			bankingModel.setwithdraw(amount);
+		}
+
+		@Override
+		public void showMenu() {
+			Scanner sc = new Scanner(System.in);
+			System.out.println();
+
+			int option;
+			do {
+
+				System.out.println("1-Check Your Balance");
+				System.out.println("2-Deposit");
+				System.out.println("3-Withdraw");
+				System.out.println("4-Previous Transaction");
+				System.out.println("5-Exit \n");
+				System.out.print("Enter Your Option : ");
+				option = sc.nextInt();
+				switch (option) {
+				case 2:
+					System.out.println("*****************************************************");
+					System.out.println("Balance = " + bankingModel.getBalance());
+					System.out.println("*****************************************************");
+					break;
+				case 3:
+					System.out.print("Enter an amount to deposit :");
+					int amount1 = sc.nextInt();
+					deposit(amount1);
+					System.out.println("*****************************************************");
+					System.out.println("Deposited : " + amount1);
+					System.out.println("******************************************************");
+					break;
+				case 4:
+					System.out.print("Enter an amount to withdraw :");
+					int amount2 = sc.nextInt();
+					withdraw(amount2);
+					System.out.println("**************************************************");
+					System.out.println("Withdrawn : " + amount2);
+					System.out.println("***************************************************");
+					break;
+				case 5:
+					System.out.println("************************************************");
+					bankingModel.getpreviousTransaction();
+					System.out.println("***********************************************");
+					break;
+				default:
+					System.out.println("Invalid option selected. Please select a valid option.");
+					break;
+				}
+			} while (option != 6);
+			System.out.println("Thank you for using our services....");
+		}
+
+	}
+}
+   
+   
+   
+   
+   
+   public class BankingModel {
+
+	private BankController bankController;
+
+	public BankingModel(BankController bankController) {
+		this.bankController = bankController;
+	}
+
+	private int balance;
+	private int previousTransaction;
+	private String userName;
+	private String userId;
+
+	public BankingModel(String userName, String userId) {
+		this.userName = userName;
+		this.userId = userId;
+	}
+
+	public int getBalance() {
+		return balance;
+	}
+
+	public void setdeposit(int amount) {
+		if (amount != 0) {
+			balance = balance + amount;
+			previousTransaction = amount;
+		}
+	}
+
+	public void setwithdraw(int amount) {
+		if (amount != 0) {
+			balance = balance - amount;
+			previousTransaction = -amount;
+		}
+	}
+
+	public String getuserName() {
+		return userName;
+	}
+
+	public String getuserId() {
+		return userId;
+	}
+
+	public int getpreviousTransaction() {
+		if (previousTransaction > 0) {
+			System.out.println("Deposited : " + previousTransaction);
+		} else if (previousTransaction < 0) {
+			System.out.println("Withdrawn : " + Math.abs(previousTransaction));
+		} else {
+			System.out.println("No transaction occurred");
+		}
+		return previousTransaction;
+	}
+
+}
+
+
+
+
+
+
+
+public class BankingModelInterface {
+	public class BankingModel implements BankingInterface {
+		// existing code
+
+		@Override
+		public void deposit(int amount) {
+			// implementation
+		}
+
+		@Override
+		public void withdraw(int amount) {
+			// implementation
+		}
+	}
+
+	public interface BankingInterface {
+		void deposit(int amount);
+
+		void withdraw(int amount);
+	}
+
+}
+
+
+
+
+
+
+
+
+
+
+
+public class Bankingview {
+	private BankController bankController;
+
+	Bankingview() {
+
+		bankController = new BankController(this);
+	}
+
+	public static void main(String[] args) {
+		BankController frsc = new BankController();
+		frsc.showMenu();
+
+	}
+
+	public void showMenu() {
+		Scanner sc = new Scanner(System.in);
+
+		BankController bankController = new BankController();
+		BankingModel bankingModel = bankController.getBankingModel();
+		System.out.println("press 1 to Login");
+		String username = "customername";
+		String userName = sc.next();
+		System.out.print("Enter your id: ");
+		String userId = sc.nextLine();
+		if (LoginUser.checkinput(userName, userId)) {
+			System.out.println("\n-->Welcome " + userName + "<--\n");
+			System.out.println("Thanks for Login.");
+
+			int option;
+			do {
+				System.out.println("2-Check Your Balance");
+				System.out.println("3-Deposit");
+				System.out.println("4-Withdraw");
+				System.out.println("5-Previous Transaction");
+				System.out.println("6-Exit");
+				System.out.print("Enter Your Option : ");
+				option = sc.nextInt();
+
+				switch (option) {
+				case 2:
+					System.out.println("Balance = " + bankingModel.getBalance());
+
+					break;
+
+				case 3:
+					System.out.print("Enter an amount to deposit: ");
+					int amount1 = sc.nextInt();
+					bankController.deposit(amount1);
+
+					break;
+				case 4:
+					System.out.print("Enter an amount to withdraw: ");
+					int amount2 = sc.nextInt();
+					bankController.withdraw(amount2);
+
+					break;
+
+				case 5:
+
+					int previousTransaction = bankingModel.getpreviousTransaction();
+
+					if (previousTransaction > 0) {
+						System.out.println("Deposited: " + previousTransaction);
+					} else if (previousTransaction < 0) {
+						System.out.println("Withdrawn: " + Math.abs(previousTransaction));
+					} else {
+						System.out.println("No transaction occurred");
+					}
+					break;
+				case 6:
+					System.out.println("Thank you for using our services");
+					break;
+				default:
+					System.out.println("Invalid option. Please try again.");
+				}
+
+			} while (option != 6);
+			sc.close();
+
+		} else {
+			System.out.println("\nInvalid Credentials. Please try again!\n");
+
+		}
+
+	}
+
+}
+
+
+
+
+
+public class LoginUser {
+	public static boolean checkinput(String userName, String userId) {
+		boolean canLogin = false;
+		if (userName.equals("sumathi") && userId.equals("12061998")) {
+			return true;
+		} else if (userName.equals("Thabathi") && userId.equals("12061997")) {
+			return true;
+		} else if (userName.equals("Karthi") && userId.equals("12061996")) {
+			return true;
+		} else if (userName.equals("pavi") && userId.equals("12061995")) {
+			return true;
+		} else if (userName.equals("Abitha") && userId.equals("12061994")) {
+			return true;
+		}
+		return false;
+	}
+}
+
+
